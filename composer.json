@@ -1,0 +1,54 @@
+{
+    "name": "dandoetech/laravel-resource-registry",
+    "description": "Laravel bridge for DanDoeTech Resource Registry: ClassBasedDriver, capability interfaces, computed resolvers, ServiceProvider.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danilo Doelle",
+            "email": "oss@dandoe.tech"
+        }
+    ],
+    "require": {
+        "php": "^8.2 || ^8.3 || ^8.4",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+        "dandoetech/resource-registry": "dev-main as 0.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DanDoeTech\\LaravelResourceRegistry\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DanDoeTech\\LaravelResourceRegistry\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.3",
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^1.11",
+        "orchestra/testbench": "^9.0 || ^10.0"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-text --coverage-clover=coverage/clover.xml",
+        "cs:fix": "php-cs-fixer fix --allow-risky=yes",
+        "cs:check": "php-cs-fixer fix --allow-risky=yes --dry-run",
+        "stan": "phpstan analyse --memory-limit=1G",
+        "qa": [
+            "@cs:check",
+            "@stan",
+            "@test"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DanDoeTech\\LaravelResourceRegistry\\Providers\\ResourceRegistryServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

@@ -1,0 +1,10 @@
+parameters:
+  level: max
+  paths:
+    - src
+    - tests
+  tmpDir: .phpstan/cache
+  checkGenericClassInNonGenericObjectType: true
+  checkMissingIterableValueType: true
+  checkImplicitMixed: true
+  reportUnmatchedIgnoredErrors: true
