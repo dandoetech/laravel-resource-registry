@@ -6,11 +6,10 @@ namespace DanDoeTech\LaravelResourceRegistry\Resolvers;
 
 use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Handles via: 'count:relation' — uses withCount() for HasMany/BelongsToMany.
- *
- * Example: via 'count:orders' produces withCount('orders as orders_count').
  */
 final class RelationCountResolver implements EloquentComputedResolver
 {
@@ -20,18 +19,32 @@ final class RelationCountResolver implements EloquentComputedResolver
     ) {
     }
 
+    /**
+     * @param  Builder<Model> $query
+     * @return Builder<Model>
+     */
     public function apply(Builder $query): Builder
     {
         return $query->withCount([$this->relation . ' as ' . $this->alias]);
     }
 
+    /**
+     * @param  Builder<Model> $query
+     * @return Builder<Model>
+     */
     public function filter(Builder $query, mixed $value, string $operator = '='): Builder
     {
+        /** @var Builder<Model> */
         return $query->having($this->alias, $operator, $value);
     }
 
+    /**
+     * @param  Builder<Model> $query
+     * @return Builder<Model>
+     */
     public function sort(Builder $query, string $direction): Builder
     {
+        /** @var Builder<Model> */
         return $query->orderBy($this->alias, $direction);
     }
 }

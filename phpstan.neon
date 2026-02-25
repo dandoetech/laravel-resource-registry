@@ -8,3 +8,18 @@ parameters:
   checkMissingIterableValueType: true
   checkImplicitMixed: true
   reportUnmatchedIgnoredErrors: true
+  ignoreErrors:
+    # having() expects scalar|DateTimeInterface|Expression|null, but our interface
+    # uses mixed per CLAUDE.md design. Values are narrowed at runtime by the caller.
+    -
+      identifier: argument.type
+      path: src/Resolvers/*.php
+      message: '#Parameter \#3 \$value of method Illuminate\\Database\\Query\\Builder::having\(\)#'
+    # Orchestra Testbench: $this->app is Application|null — safe in test context
+    -
+      path: tests/Integration/*.php
+      message: '#Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null#'
+    # Orchestra Testbench: $app and config access in defineEnvironment returns mixed
+    -
+      path: tests/Integration/*.php
+      message: '#Cannot call method (set|get)\(\) on mixed#'

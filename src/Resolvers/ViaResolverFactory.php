@@ -69,6 +69,6 @@ final class ViaResolverFactory
         $relation = \substr($via, 0, $dotPos);
         $field = \substr($via, $dotPos + 1);
 
-        return new RelationFieldResolver($alias, $relation, $field);
+        return new RelationFieldResolver($relation, $field);
     }
 }

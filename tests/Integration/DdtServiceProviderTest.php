@@ -21,13 +21,12 @@ final class DdtServiceProviderTest extends TestCase
     {
         $fixturesPath = \dirname(__DIR__) . '/Fixtures';
 
-        $app['config']->set('ddt.resource_paths', [
-            $fixturesPath . '/App/Resources',
-            $fixturesPath . '/Modules/*/Resources',
-        ]);
-
-        // Override basePath to '' so absolute fixture paths resolve correctly
-        $app['config']->set('ddt.api_prefix', 'api');
+        tap($app['config'], function ($config) use ($fixturesPath): void {
+            $config->set('ddt.resource_paths', [
+                $fixturesPath . '/App/Resources',
+                $fixturesPath . '/Modules/*/Resources',
+            ]);
+        });
     }
 
     #[Test]
@@ -43,6 +42,7 @@ final class DdtServiceProviderTest extends TestCase
     #[Test]
     public function it_discovers_resources_from_configured_paths(): void
     {
+        /** @var Registry $registry */
         $registry = $this->app->make(Registry::class);
 
         $product = $registry->getResource('product');
@@ -60,6 +60,7 @@ final class DdtServiceProviderTest extends TestCase
     #[Test]
     public function it_returns_all_discovered_resources(): void
     {
+        /** @var Registry $registry */
         $registry = $this->app->make(Registry::class);
         $all = $registry->all();
 
@@ -73,14 +74,15 @@ final class DdtServiceProviderTest extends TestCase
     #[Test]
     public function it_merges_default_config(): void
     {
-        $this->assertSame('api', $this->app['config']->get('ddt.api_prefix'));
-        $this->assertSame(25, $this->app['config']->get('ddt.pagination.per_page'));
-        $this->assertSame(200, $this->app['config']->get('ddt.pagination.max_per_page'));
+        $this->assertSame('api', config('ddt.api_prefix'));
+        $this->assertSame(25, config('ddt.pagination.per_page'));
+        $this->assertSame(200, config('ddt.pagination.max_per_page'));
     }
 
     #[Test]
     public function it_returns_null_for_unknown_resource(): void
     {
+        /** @var Registry $registry */
         $registry = $this->app->make(Registry::class);
 
         $this->assertNull($registry->getResource('nonexistent'));

@@ -6,13 +6,11 @@ namespace DanDoeTech\LaravelResourceRegistry\Resolvers;
 
 use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Expression;
 
 /**
  * Handles via: 'pluck:relation.field' — GROUP_CONCAT for BelongsToMany.
- *
- * Example: via 'pluck:categories.name' produces a subselect with GROUP_CONCAT
- * that aggregates related values into a comma-separated string.
  */
 final class RelationPluckResolver implements EloquentComputedResolver
 {
@@ -23,18 +21,36 @@ final class RelationPluckResolver implements EloquentComputedResolver
     ) {
     }
 
+    /**
+     * @param  Builder<Model> $query
+     * @return Builder<Model>
+     */
     public function apply(Builder $query): Builder
     {
-        return $query->withAggregate($this->relation, DB::raw("GROUP_CONCAT({$this->field} SEPARATOR ', ')"));
+        $expression = new Expression(
+            'GROUP_CONCAT(' . $query->getGrammar()->wrap($this->field) . " SEPARATOR ', ')",
+        );
+
+        return $query->withAggregate($this->relation, $expression);
     }
 
+    /**
+     * @param  Builder<Model> $query
+     * @return Builder<Model>
+     */
     public function filter(Builder $query, mixed $value, string $operator = '='): Builder
     {
+        /** @var Builder<Model> */
         return $query->having($this->alias, $operator, $value);
     }
 
+    /**
+     * @param  Builder<Model> $query
+     * @return Builder<Model>
+     */
     public function sort(Builder $query, string $direction): Builder
     {
+        /** @var Builder<Model> */
         return $query->orderBy($this->alias, $direction);
     }
 }
