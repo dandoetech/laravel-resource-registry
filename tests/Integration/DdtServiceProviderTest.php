@@ -75,8 +75,7 @@ final class DdtServiceProviderTest extends TestCase
     public function it_merges_default_config(): void
     {
         $this->assertSame('api', config('ddt.api_prefix'));
-        $this->assertSame(25, config('ddt.pagination.per_page'));
-        $this->assertSame(200, config('ddt.pagination.max_per_page'));
+        $this->assertIsArray(config('ddt.resource_paths'));
     }
 
     #[Test]
