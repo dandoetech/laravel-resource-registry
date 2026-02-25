@@ -15,14 +15,14 @@ final class DdtServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/ddt.php', 'ddt');
+        $this->mergeConfigFrom(__DIR__ . '/../config/ddt_registry.php', 'ddt_registry');
 
         $this->app->singleton(Registry::class, static function (Application $app): Registry {
             /** @var ConfigRepository $config */
             $config = $app->make('config');
 
             /** @var list<string> $paths */
-            $paths = (array) $config->get('ddt.resource_paths', []);
+            $paths = (array) $config->get('ddt_registry.resource_paths', []);
 
             $pathResolver = new PathResolver($app->basePath(), $paths);
             $driver = new ClassBasedDriver($pathResolver);
@@ -34,7 +34,7 @@ final class DdtServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/ddt.php' => $this->app->configPath('ddt.php'),
+            __DIR__ . '/../config/ddt_registry.php' => $this->app->configPath('ddt_registry.php'),
         ], 'ddt-config');
     }
 }

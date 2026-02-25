@@ -22,7 +22,7 @@ final class DdtServiceProviderTest extends TestCase
         $fixturesPath = \dirname(__DIR__) . '/Fixtures';
 
         tap($app['config'], function ($config) use ($fixturesPath): void {
-            $config->set('ddt.resource_paths', [
+            $config->set('ddt_registry.resource_paths', [
                 $fixturesPath . '/App/Resources',
                 $fixturesPath . '/Modules/*/Resources',
             ]);
@@ -74,8 +74,8 @@ final class DdtServiceProviderTest extends TestCase
     #[Test]
     public function it_merges_default_config(): void
     {
-        $this->assertSame('api', config('ddt.api_prefix'));
-        $this->assertIsArray(config('ddt.resource_paths'));
+        $this->assertSame('api', config('ddt_registry.api_prefix'));
+        $this->assertIsArray(config('ddt_registry.resource_paths'));
     }
 
     #[Test]
