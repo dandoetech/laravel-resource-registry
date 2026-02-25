@@ -10,3 +10,4 @@
 /.php-cs-fixer.cache
 /.phpstan/cache/
 /node_modules/
+/.phpunit.cache/
