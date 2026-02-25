@@ -45,7 +45,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DanDoeTech\\LaravelResourceRegistry\\Providers\\ResourceRegistryServiceProvider"
+                "DanDoeTech\\LaravelResourceRegistry\\DdtServiceProvider"
             ]
         }
     },

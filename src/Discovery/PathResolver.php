@@ -6,7 +6,7 @@ namespace DanDoeTech\LaravelResourceRegistry\Discovery;
 
 final class PathResolver
 {
-    /** @param list<string> $patterns Directory patterns relative to basePath */
+    /** @param list<string> $patterns Directory patterns (absolute or relative to basePath) */
     public function __construct(
         private readonly string $basePath,
         private readonly array $patterns,
@@ -23,7 +23,11 @@ final class PathResolver
         $files = [];
 
         foreach ($this->patterns as $pattern) {
-            $fullPattern = $this->basePath . '/' . \ltrim($pattern, '/') . '/*.php';
+            if (\str_starts_with($pattern, '/')) {
+                $fullPattern = $pattern . '/*.php';
+            } else {
+                $fullPattern = $this->basePath . '/' . $pattern . '/*.php';
+            }
 
             foreach (\glob($fullPattern) ?: [] as $file) {
                 $resolved = \realpath($file);
