@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-02-26
+
 ### Added
 - `DdtServiceProvider` binding `Registry` as a singleton with `ClassBasedDriver`
 - `ClassBasedDriver` scanning configured paths for `Resource` subclasses with lazy-load caching
