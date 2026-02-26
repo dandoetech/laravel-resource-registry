@@ -9,12 +9,14 @@
             "email": "oss@dandoe.tech"
         }
     ],
+    "homepage": "https://github.com/dandoe-tech/laravel-resource-registry",
+    "keywords": ["php", "laravel", "registry", "resource", "eloquent", "crud"],
     "require": {
         "php": "^8.2 || ^8.3 || ^8.4",
         "illuminate/support": "^10.0 || ^11.0 || ^12.0",
         "illuminate/config": "^10.0 || ^11.0 || ^12.0",
         "illuminate/database": "^10.0 || ^11.0 || ^12.0",
-        "dandoetech/resource-registry": "dev-main as 0.1.0"
+        "dandoetech/resource-registry": "^0.1"
     },
     "autoload": {
         "psr-4": {
@@ -50,7 +52,5 @@
                 "DanDoeTech\\LaravelResourceRegistry\\DdtServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    }
 }
