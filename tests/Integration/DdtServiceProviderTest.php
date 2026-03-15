@@ -74,7 +74,6 @@ final class DdtServiceProviderTest extends TestCase
     #[Test]
     public function it_merges_default_config(): void
     {
-        $this->assertSame('api', config('ddt_registry.api_prefix'));
         $this->assertIsArray(config('ddt_registry.resource_paths'));
     }
 

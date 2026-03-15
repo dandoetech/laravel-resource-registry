@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-02-26
+## [0.1.0] - 2026-03-15
+
+### Changed
+- Removed unused `api_prefix` from `ddt_registry.php` config (API prefix is managed by `ddt_api.prefix`)
 
 ### Added
 - `DdtServiceProvider` binding `Registry` as a singleton with `ClassBasedDriver`
