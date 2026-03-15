@@ -87,9 +87,6 @@ Resources are auto-discovered from configured paths on first access.
 
 ```php
 return [
-    // Route prefix used by consumer packages (generic-api, bff)
-    'api_prefix' => 'api',
-
     // Directories scanned for Resource classes (relative to base_path)
     'resource_paths' => [
         'app/Resources',
@@ -97,6 +94,8 @@ return [
     ],
 ];
 ```
+
+> **Note:** The API route prefix is configured in `config/ddt_api.php` (from [`laravel-generic-api`](https://github.com/dandoetech/laravel-generic-api)), not here. This config only controls resource discovery.
 
 Glob patterns are supported — `Modules/*/Resources` discovers resources across all module directories.
 
