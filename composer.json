@@ -13,9 +13,9 @@
     "keywords": ["php", "laravel", "registry", "resource", "eloquent", "crud"],
     "require": {
         "php": "^8.2",
-        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
-        "illuminate/config": "^10.0 || ^11.0 || ^12.0",
-        "illuminate/database": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^11.0 || ^12.0",
+        "illuminate/config": "^11.0 || ^12.0",
+        "illuminate/database": "^11.0 || ^12.0",
         "dandoetech/resource-registry": "^0.1"
     },
     "autoload": {
@@ -32,7 +32,7 @@
         "phpunit/phpunit": "^11.3",
         "friendsofphp/php-cs-fixer": "^3.64",
         "phpstan/phpstan": "^1.11",
-        "orchestra/testbench": "^8.0 || ^9.0 || ^10.0"
+        "orchestra/testbench": "^9.0 || ^10.0"
     },
     "scripts": {
         "test": "XDEBUG_MODE=off phpunit",
