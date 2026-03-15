@@ -11,3 +11,4 @@
 /.phpstan/cache/
 /node_modules/
 /.phpunit.cache/
+.env

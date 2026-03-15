@@ -9,10 +9,10 @@
             "email": "oss@dandoe.tech"
         }
     ],
-    "homepage": "https://github.com/dandoe-tech/laravel-resource-registry",
+    "homepage": "https://github.com/dandoetech/laravel-resource-registry",
     "keywords": ["php", "laravel", "registry", "resource", "eloquent", "crud"],
     "require": {
-        "php": "^8.2 || ^8.3 || ^8.4",
+        "php": "^8.2",
         "illuminate/support": "^10.0 || ^11.0 || ^12.0",
         "illuminate/config": "^10.0 || ^11.0 || ^12.0",
         "illuminate/database": "^10.0 || ^11.0 || ^12.0",

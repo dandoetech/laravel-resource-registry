@@ -22,5 +22,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `RelationFieldResolver` for `relation.field` subselects (BelongsTo/HasOne)
 - `RelationCountResolver` for `count:relation` aggregates (HasMany/BelongsToMany)
 - `RelationPluckResolver` for `pluck:relation.field` GROUP_CONCAT aggregates
-- `ddt_registry.php` config with `api_prefix` and `resource_paths` options
+- `ddt_registry.php` config with `resource_paths` option
 - Config publishing via `ddt-config` tag
