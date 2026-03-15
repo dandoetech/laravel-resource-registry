@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  qa:
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { php: '8.2', laravel: '10' }
+          - { php: '8.2', laravel: '11' }
+          - { php: '8.2', laravel: '12' }
+          - { php: '8.3', laravel: '10' }
+          - { php: '8.3', laravel: '11' }
+          - { php: '8.3', laravel: '12' }
+          - { php: '8.4', laravel: '11' }
+          - { php: '8.4', laravel: '12' }
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, xml
+          coverage: none
+          tools: composer:v2
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-composer-
+
+      - name: Configure dandoetech dependencies
+        run: |
+          composer config repositories.resource-registry vcs https://github.com/dandoetech/resource-registry
+
+      - name: Pin Laravel version
+        run: composer require "illuminate/support:^${{ matrix.laravel }}.0" --no-update --no-interaction
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Code style
+        run: composer cs:check
+
+      - name: Static analysis
+        run: composer stan
+
+      - name: Tests
+        run: composer test
