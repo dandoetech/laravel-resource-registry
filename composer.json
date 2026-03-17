@@ -2,6 +2,8 @@
     "name": "dandoetech/laravel-resource-registry",
     "description": "Laravel bridge for DanDoeTech Resource Registry: ClassBasedDriver, capability interfaces, computed resolvers, ServiceProvider.",
     "type": "library",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +12,14 @@
         }
     ],
     "homepage": "https://github.com/dandoetech/laravel-resource-registry",
-    "keywords": ["php", "laravel", "registry", "resource", "eloquent", "crud"],
+    "keywords": [
+        "php",
+        "laravel",
+        "registry",
+        "resource",
+        "eloquent",
+        "crud"
+    ],
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0 || ^12.0",
@@ -31,7 +40,7 @@
     "require-dev": {
         "phpunit/phpunit": "^11.3",
         "friendsofphp/php-cs-fixer": "^3.64",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^2.0",
         "orchestra/testbench": "^9.0 || ^10.0"
     },
     "scripts": {

@@ -4,9 +4,6 @@ parameters:
     - src
     - tests
   tmpDir: .phpstan/cache
-  checkGenericClassInNonGenericObjectType: true
-  checkMissingIterableValueType: true
-  checkImplicitMixed: true
   reportUnmatchedIgnoredErrors: true
   ignoreErrors:
     # having() expects scalar|DateTimeInterface|Expression|null, but our interface
