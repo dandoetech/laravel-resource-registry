@@ -8,6 +8,7 @@ use DanDoeTech\LaravelResourceRegistry\Discovery\PathResolver;
 use DanDoeTech\LaravelResourceRegistry\Driver\ClassBasedDriver;
 use DanDoeTech\ResourceRegistry\Registry\Registry;
 use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +26,17 @@ final class DdtServiceProvider extends ServiceProvider
             $paths = (array) $config->get('ddt_registry.resource_paths', []);
 
             $pathResolver = new PathResolver($app->basePath(), $paths);
-            $driver = new ClassBasedDriver($pathResolver);
+
+            $rawTtl = $config->get('ddt_registry.cache_ttl', 0);
+            $cacheTtl = \is_int($rawTtl) ? $rawTtl : (int) (\is_numeric($rawTtl) ? $rawTtl : 0);
+
+            $cache = null;
+            if ($cacheTtl > 0) {
+                /** @var CacheRepository $cache */
+                $cache = $app->make(CacheRepository::class);
+            }
+
+            $driver = new ClassBasedDriver($pathResolver, $cache, $cacheTtl);
 
             return new Registry($driver);
         });
