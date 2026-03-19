@@ -7,7 +7,7 @@ namespace DanDoeTech\LaravelResourceRegistry\Contracts;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-interface EloquentComputedResolver
+interface EloquentComputedResolverInterface
 {
     /**
      * Modify the query to make the computed field available.
@@ -33,3 +33,6 @@ interface EloquentComputedResolver
      */
     public function sort(Builder $query, string $direction): Builder;
 }
+
+// Backwards compatibility alias for external consumers
+\class_alias(EloquentComputedResolverInterface::class, 'DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver');

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace DanDoeTech\LaravelResourceRegistry\Resolvers;
 
-use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver;
+use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolverInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Handles via: 'count:relation' — uses withCount() for HasMany/BelongsToMany.
  */
-final class RelationCountResolver implements EloquentComputedResolver
+final class RelationCountResolver implements EloquentComputedResolverInterface
 {
     public function __construct(
         private readonly string $alias,

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DanDoeTech\LaravelResourceRegistry\Resolvers;
 
-use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver;
+use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolverInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Expression;
@@ -12,7 +12,7 @@ use Illuminate\Database\Query\Expression;
 /**
  * Handles via: 'pluck:relation.field' — GROUP_CONCAT for BelongsToMany.
  */
-final class RelationPluckResolver implements EloquentComputedResolver
+final class RelationPluckResolver implements EloquentComputedResolverInterface
 {
     public function __construct(
         private readonly string $alias,

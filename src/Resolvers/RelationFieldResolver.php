@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace DanDoeTech\LaravelResourceRegistry\Resolvers;
 
-use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver;
+use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolverInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Handles via: 'relation.field' — adds a correlated subselect for BelongsTo/HasOne.
  */
-final class RelationFieldResolver implements EloquentComputedResolver
+final class RelationFieldResolver implements EloquentComputedResolverInterface
 {
     public function __construct(
         private readonly string $relation,

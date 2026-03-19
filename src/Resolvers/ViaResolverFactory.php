@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DanDoeTech\LaravelResourceRegistry\Resolvers;
 
-use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver;
+use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolverInterface;
 
 /**
  * Parses a computed field 'via' string and returns the appropriate resolver.
@@ -19,7 +19,7 @@ final class ViaResolverFactory
     /**
      * @throws \InvalidArgumentException When the via string format is not recognized
      */
-    public function create(string $via, string $alias): EloquentComputedResolver
+    public function create(string $via, string $alias): EloquentComputedResolverInterface
     {
         if (\str_starts_with($via, 'count:')) {
             return $this->createCount($via, $alias);
