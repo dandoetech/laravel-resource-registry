@@ -13,6 +13,7 @@ use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolverInterfa
  *   'relation.field'        → RelationFieldResolver  (BelongsTo/HasOne subselect)
  *   'count:relation'        → RelationCountResolver   (withCount)
  *   'pluck:relation.field'  → RelationPluckResolver   (GROUP_CONCAT)
+ *   'expr:a - b'            → ExpressionResolver       (arithmetic between columns)
  */
 final class ViaResolverFactory
 {
@@ -21,6 +22,10 @@ final class ViaResolverFactory
      */
     public function create(string $via, string $alias): EloquentComputedResolverInterface
     {
+        if (\str_starts_with($via, 'expr:')) {
+            return $this->createExpression($via, $alias);
+        }
+
         if (\str_starts_with($via, 'count:')) {
             return $this->createCount($via, $alias);
         }
@@ -30,6 +35,17 @@ final class ViaResolverFactory
         }
 
         return $this->createRelationField($via, $alias);
+    }
+
+    private function createExpression(string $via, string $alias): ExpressionResolver
+    {
+        $expression = \substr($via, 5); // strip 'expr:'
+
+        if (\trim($expression) === '') {
+            throw new \InvalidArgumentException("Invalid via format: '{$via}'. Expected 'expr:column_a - column_b'.");
+        }
+
+        return new ExpressionResolver($expression, $alias);
     }
 
     private function createCount(string $via, string $alias): RelationCountResolver

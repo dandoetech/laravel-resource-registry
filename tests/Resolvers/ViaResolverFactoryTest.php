@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DanDoeTech\LaravelResourceRegistry\Tests\Resolvers;
 
+use DanDoeTech\LaravelResourceRegistry\Resolvers\ExpressionResolver;
 use DanDoeTech\LaravelResourceRegistry\Resolvers\RelationCountResolver;
 use DanDoeTech\LaravelResourceRegistry\Resolvers\RelationFieldResolver;
 use DanDoeTech\LaravelResourceRegistry\Resolvers\RelationPluckResolver;
@@ -95,6 +96,33 @@ final class ViaResolverFactoryTest extends TestCase
     }
 
     #[Test]
+    public function it_creates_expression_resolver_for_expr_prefix(): void
+    {
+        $resolver = $this->factory->create('expr:re_betrag_partner - re_betrag_wtt', 'differenz');
+
+        $this->assertInstanceOf(ExpressionResolver::class, $resolver);
+    }
+
+    #[Test]
+    #[DataProvider('validExpressionProvider')]
+    public function it_parses_various_expression_patterns(string $via): void
+    {
+        $resolver = $this->factory->create($via, 'alias');
+
+        $this->assertInstanceOf(ExpressionResolver::class, $resolver);
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function validExpressionProvider(): iterable
+    {
+        yield 'subtraction' => ['expr:a - b'];
+        yield 'addition' => ['expr:price + tax'];
+        yield 'multiplication' => ['expr:quantity * unit_price'];
+        yield 'with parens' => ['expr:(a + b) * c'];
+        yield 'numeric literal' => ['expr:price * 1.19'];
+    }
+
+    #[Test]
     #[DataProvider('invalidViaProvider')]
     public function it_throws_on_invalid_via_format(string $via): void
     {
@@ -114,5 +142,8 @@ final class ViaResolverFactoryTest extends TestCase
         yield 'pluck without dot' => ['pluck:categories'];
         yield 'pluck with dot at start' => ['pluck:.name'];
         yield 'pluck with dot at end' => ['pluck:categories.'];
+        yield 'expr with empty expression' => ['expr:'];
+        yield 'expr with whitespace only' => ['expr:   '];
+        yield 'expr with sql injection' => ['expr:a; DROP TABLE users'];
     }
 }
