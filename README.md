@@ -99,6 +99,18 @@ return [
 
 Glob patterns are supported — `Modules/*/Resources` discovers resources across all module directories.
 
+## Related Packages
+
+This package provides the registry and resource scanning. For a complete setup, you'll also need:
+
+| Package | Purpose |
+|---------|---------|
+| [`laravel-generic-api`](https://github.com/dandoetech/laravel-generic-api) | CRUD endpoints (GET/POST/PATCH/DELETE) for all registered resources |
+| [`laravel-model-meta`](https://github.com/dandoetech/laravel-model-meta) | Generate Eloquent Models + Migrations from registry definitions |
+| [`laravel-openapi-generator`](https://github.com/dandoetech/laravel-openapi-generator) | Auto-generate OpenAPI 3.1 spec from registry |
+| [`laravel-bff`](https://github.com/dandoetech/laravel-bff) | Frontend metadata endpoints (fields, forms, tables, permissions) |
+| [`filament-registry-bridge`](https://github.com/dandoetech/filament-registry-bridge) | Generate Filament admin panel from registry definitions |
+
 ## Capability Interfaces
 
 Framework-specific capabilities are opt-in via small interfaces. Implement only what you need:
