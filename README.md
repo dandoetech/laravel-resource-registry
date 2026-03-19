@@ -130,7 +130,13 @@ interface HasPolicy
     public function policy(): string;
 }
 
-// Apply a query scope (e.g., user sees only own records)
+// Scope queries to the authenticated user's records
+interface HasOwnerScope
+{
+    public function ownerKey(): string;
+}
+
+// @deprecated — use HasOwnerScope or Policies instead (removed in v1.0)
 interface HasScope
 {
     /** @return class-string|Closure|null */
@@ -156,13 +162,13 @@ For resources with computed fields using `via` syntax, resolvers are built autom
 | `count:relation` | `RelationCountResolver` (withCount) | `count:orders` |
 | `pluck:relation.field` | `RelationPluckResolver` (GROUP_CONCAT) | `pluck:tags.name` |
 
-For custom logic, implement `EloquentComputedResolver`:
+For custom logic, implement `EloquentComputedResolverInterface`:
 
 ```php
-use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolver;
+use DanDoeTech\LaravelResourceRegistry\Contracts\EloquentComputedResolverInterface;
 use Illuminate\Database\Eloquent\Builder;
 
-class CompletedOrdersCount implements EloquentComputedResolver
+class CompletedOrdersCount implements EloquentComputedResolverInterface
 {
     public function apply(Builder $query): Builder
     {
@@ -198,8 +204,9 @@ Reference it in your resource:
 | `PathResolver` | Resolves glob patterns to PHP file paths |
 | `HasEloquentModel` | Capability: link resource to Eloquent model |
 | `HasPolicy` | Capability: link resource to Laravel policy |
-| `HasScope` | Capability: apply query scope |
-| `EloquentComputedResolver` | Contract for custom computed field query logic |
+| `HasOwnerScope` | Capability: scope queries to authenticated user |
+| `HasScope` | *(deprecated)* Capability: apply query scope |
+| `EloquentComputedResolverInterface` | Contract for custom computed field query logic |
 | `ViaResolverFactory` | Creates resolvers from `via` syntax strings |
 
 ## Testing
