@@ -1,5 +1,7 @@
 # Laravel Resource Registry
 
+> **Pre-release** — Architecture by senior tech lead, implementation largely AI-assisted with human review. Not fully reviewed. Architecture may change before v1.0.0.
+
 Laravel bridge for the DanDoeTech Resource Registry. Auto-discovers Resource classes, binds the Registry as a singleton, and provides capability interfaces for Eloquent integration.
 
 This is the central package — install it first, then add consumer packages as needed.
