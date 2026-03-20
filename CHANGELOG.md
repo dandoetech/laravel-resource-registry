@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-20
+
 ### Added
 - `HasOwnerScope` capability interface for owner-based query scoping (`ownerKey()` method)
 - Renamed `EloquentComputedResolver` to `EloquentComputedResolverInterface` for naming consistency
